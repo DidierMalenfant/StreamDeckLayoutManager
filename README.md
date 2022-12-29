@@ -1,6 +1,6 @@
-# StreamDeckManager
+# StreamDeckLayoutManager
 
-[![MIT License](https://img.shields.io/github/license/DidierMalenfant/StreamDeckManager)](https://spdx.org/licenses/MIT.html) [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/StreamDeckManager.svg)](https://python.org) [![PyPI - Version](https://img.shields.io/pypi/v/StreamDeckManager.svg)](https://pypi.org/project/StreamDeckManager)
+[![MIT License](https://img.shields.io/github/license/DidierMalenfant/StreamDeckLayoutManager)](https://spdx.org/licenses/MIT.html) [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/StreamDeckLayoutManager.svg)](https://python.org) [![PyPI - Version](https://img.shields.io/pypi/v/StreamDeckLayoutManager.svg)](https://pypi.org/project/StreamDeckLayoutManager)
 
 A higher-level **Python** API for ElGato's [Stream Deck](https://www.elgato.com/en/stream-deck-mk2).
 
@@ -8,22 +8,22 @@ This module is based off and uses [streamdeck-elgato-python](https://github.com/
 
 ### Installation
 
-**StreamDeckManager** is a pure Python project. It requires at least [Python](https://python.org) 3.8.
+**StreamDeckLayoutManager** is a pure Python project. It requires at least [Python](https://python.org) 3.8.
 
-You can install **StreamDeckManager** by typing the following in a terminal window:
+You can install **StreamDeckLayoutManager** by typing the following in a terminal window:
 
 ```console
-pip install StreamDeckManager
+pip install StreamDeckLayoutManager
 ```
 
 ### Usage
 
-You can use **StreamDeckManager** in your own **Python** scripts like this:
+You can use **StreamDeckLayoutManager** in your own **Python** scripts like this:
 
 ```
-import StreamDeckManager
+import StreamDeckLayoutManager
 
-streamdeck_manager = StreamDeckManager.Manager('StreamDeckConfig.toml')
+streamdeck_manager = StreamDeckLayoutManager.Manager('StreamDeckConfig.toml')
 streamdeck_manager.displayPage('MyPageName')
 ```
 
@@ -97,29 +97,29 @@ Key9PressedAction = [ 'display_page', 'SamplePage2' ]
 
 This callback will simply display it the page `SamplePage2`. The page stack is unaffected and only the current page is modified.
 
-### StreamDeckManager class
+### StreamDeckLayoutManager.Manager class
 
-##### `StreamDeckManager(config_file_path: str, deck_index: int = 0)`
+##### `Manager(config_file_path: str, deck_index: int = 0)`
 
 Initialize a new manager for streack deck at index `deck_index` using the config file at `config_file_path`.
 
-##### `StreamDeckManager.shutdown()`
+##### `Manager.shutdown()`
 
 Shuts down the manager.
 
-##### `StreamDeckManager.displayPage(page_name: str)`
+##### `Manager.displayPage(page_name: str)`
 
 Display page named `page_name`.
 
-##### `StreamDeckManager.pushPage(self, page_name: str)`
+##### `Manager.pushPage(self, page_name: str)`
 
 Push current page onto the stack and display page named `page_name`.
 
-##### `StreamDeckManager.popPage()`
+##### `Manager.popPage()`
 
 Pop the previous page off the stack and display it.
 
-##### `StreamDeckManager.setKey(self, page_name: str, key_index: int, image_file: str, label: str, pressed_callback, released_callback=None)`
+##### `Manager.setKey(self, page_name: str, key_index: int, image_file: str, label: str, pressed_callback, released_callback=None)`
 
 Set the key in page named `page_name` at index `key_index` to display image at `image_file` with label `label`. When key is pressed then `pressed_callback` is called, when the key is released then `released_callback` is called.
 
@@ -134,18 +134,18 @@ streamdeck_manager.setKey('MainPage', 12, 'MyImage.png', 'My Label',
                           ['MyCallbackName', 'test_argument', 2])
 ```
 
-##### `StreamDeckManager.setCallback(self, callback_name: str, callback)`
+##### `Manager.setCallback(self, callback_name: str, callback)`
 
 Set the callback method for callback `callback_name` to the method `callback`.
 
-##### `StreamDeckManager.numberOfStreamDecks(self) -> int`
+##### `Manager.numberOfStreamDecks(self) -> int`
 
 Return the number of stream decks found.
 
-##### `StreamDeckManager.printDeckInfo(self, index: int)`
+##### `Manager.printDeckInfo(self, index: int)`
 
 Prints diagnostic information about the streamdeck at index `index`.
 
 ### License
 
-**StreamDeckManager** is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
+**StreamDeckLayoutManager** is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.

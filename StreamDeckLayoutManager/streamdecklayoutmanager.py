@@ -33,15 +33,15 @@ class Manager:
         self._nb_of_streamdecks = len(self._streamdecks)
 
         if self._nb_of_streamdecks == 0:
-            raise RuntimeError('StreamDeckManager: Couldn\'t find any streamdecks.')
+            raise RuntimeError('StreamDeckLayoutManager: Couldn\'t find any streamdecks.')
 
         if deck_index >= self._nb_of_streamdecks:
-            raise RuntimeError('StreamDeckManager: Ouf of bounds deck_index.')
+            raise RuntimeError('StreamDeckLayoutManager: Ouf of bounds deck_index.')
 
         self._deck = self._streamdecks[deck_index]
 
         if not self._deck .is_visual():
-            raise RuntimeError('StreamDeckManager: StreamDeck does not have any screene.')
+            raise RuntimeError('StreamDeckLayoutManager: StreamDeck does not have any screene.')
 
         self._deck.open()
         self._deck.reset()
@@ -53,34 +53,34 @@ class Manager:
 
     def _initConfig(self, config_file_path: str):
         if config_file_path is None:
-            raise RuntimeError('StreamDeckManager: Requires the path to its config file as an argument.')
+            raise RuntimeError('StreamDeckLayoutManager: Requires the path to its config file as an argument.')
 
         if not os.path.exists(config_file_path):
-            raise RuntimeError(f'StreamDeckManager: Can\'t read config file at \'{config_file_path}\'.')
+            raise RuntimeError(f'StreamDeckLayoutManager: Can\'t read config file at \'{config_file_path}\'.')
 
         try:
             with open(config_file_path, mode="rb") as fp:
                 self._config = tomllib.load(fp)
         except Exception as e:
-            raise RuntimeError(f'StreamDeckManager: Can\'t read config file at \'{config_file_path}\' ({e}).')
+            raise RuntimeError(f'StreamDeckLayoutManager: Can\'t read config file at \'{config_file_path}\' ({e}).')
 
         config_data = self._config.get('config')
         if config_data is None:
-            raise RuntimeError(f'StreamDeckManager: Missing \'config\' section in \'{config_file_path}\'.')
+            raise RuntimeError(f'StreamDeckLayoutManager: Missing \'config\' section in \'{config_file_path}\'.')
 
         folder_path = config_data.get('AssetFolder')
         if folder_path is None:
-            raise RuntimeError(f'StreamDeckManager: Missing \'AssetFolder\' in \'{config_file_path}\'.')
+            raise RuntimeError(f'StreamDeckLayoutManager: Missing \'AssetFolder\' in \'{config_file_path}\'.')
 
         self._assets_folder = folder_path if folder_path.startswith('/') else os.path.join(os.path.join(Path(config_file_path).parent, folder_path))
 
         font_file = config_data.get('Font')
         if font_file is None:
-            raise RuntimeError(f'StreamDeckManager: Missing \'Font\' in \'{config_file_path}\'.')
+            raise RuntimeError(f'StreamDeckLayoutManager: Missing \'Font\' in \'{config_file_path}\'.')
 
         font_size = config_data.get('FontSize')
         if font_size is None:
-            raise RuntimeError(f'StreamDeckManager: Missing \'FontSize\' in \'{config_file_path}\'.')
+            raise RuntimeError(f'StreamDeckLayoutManager: Missing \'FontSize\' in \'{config_file_path}\'.')
 
         self._font = ImageFont.truetype(os.path.join(self._assets_folder, font_file), font_size)
 
@@ -141,30 +141,30 @@ class Manager:
         callback_name = action[0]
         if callback_name == 'display_page':
             if len(action) != 2:
-                raise RuntimeError('StreamDeckManager: Invalid arguments to display_page action.')
+                raise RuntimeError('StreamDeckLayoutManager: Invalid arguments to display_page action.')
 
             self.displayPage(action[1])
         elif callback_name == 'push_page':
             if len(action) != 2:
-                raise RuntimeError('StreamDeckManager: Invalid arguments to push_page action.')
+                raise RuntimeError('StreamDeckLayoutManager: Invalid arguments to push_page action.')
 
             self.pushPage(action[1])
         elif callback_name == 'pop_page':
             if len(action) != 1:
-                raise RuntimeError('StreamDeckManager: Invalid arguments to pop_page action.')
+                raise RuntimeError('StreamDeckLayoutManager: Invalid arguments to pop_page action.')
 
             self.popPage()
         else:
             callback = self._callbacks.get(callback_name)
             if callback is None:
-                raise RuntimeError(f'StreamDeckManager: Unknown callback \'{callback_name}\'.')
+                raise RuntimeError(f'StreamDeckLayoutManager: Unknown callback \'{callback_name}\'.')
 
             callback(action[1:])
 
     def _updatePage(self, page_name: str):
         page_config = self._config.get(page_name)
         if page_config is None:
-            raise RuntimeError(f'StreamDeckManager: Missing config for page \'{page_name}\'.')
+            raise RuntimeError(f'StreamDeckLayoutManager: Missing config for page \'{page_name}\'.')
 
         for key_index in range(self._deck.key_count()):
             key_name = f'Key{key_index}'
@@ -217,7 +217,7 @@ class Manager:
 
         current_page_index = len(self._page_stack) - 1
         if current_page_index < 0:
-            raise RuntimeError('StreamDeckManager: No current page set before calling pushPage().')
+            raise RuntimeError('StreamDeckLayoutManager: No current page set before calling pushPage().')
 
         self._page_stack.append(page_name)
 
@@ -229,7 +229,7 @@ class Manager:
 
         current_page_index = len(self._page_stack) - 1
         if current_page_index < 1:
-            raise RuntimeError('StreamDeckManager: No page to pop when calling popPage().')
+            raise RuntimeError('StreamDeckLayoutManager: No page to pop when calling popPage().')
 
         self._page_stack = self._page_stack[:-1]
 
@@ -282,7 +282,7 @@ class Manager:
 
         reserved_callback_names = ['display_page', 'push_page', 'pop_page']
         if callback_name in reserved_callback_names:
-            raise RuntimeError(f'StreamDeckManager: Callback name \'{callback_name}\' is reserved.')
+            raise RuntimeError(f'StreamDeckLayoutManager: Callback name \'{callback_name}\' is reserved.')
 
         if callback is None:
             self._callbacks.pop(callback_name)

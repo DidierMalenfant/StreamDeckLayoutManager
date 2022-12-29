@@ -2,6 +2,6 @@
 #
 # SPDX-License-Identifier: MIT
 
-from .streamdeckmanager import Manager
+from .streamdecklayoutmanager import Manager
 
 __all__ = ['Manager']
