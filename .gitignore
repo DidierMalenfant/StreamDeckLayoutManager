@@ -1,3 +1,4 @@
 /.nova
 __pycache__
 .DS_Store
+/dist
