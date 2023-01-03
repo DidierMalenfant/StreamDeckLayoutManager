@@ -25,6 +25,9 @@ dynamic = ["version"]
 [tool.hatch.version]
 path = "StreamDeckLayoutManager/__about__.py"
 
+[project.urls]
+Homepage = "https://github.com/DidierMalenfant/StreamDeckLayoutManager"
+
 [tool.hatch.build.targets.sdist]
 exclude = [
   "/.github",
