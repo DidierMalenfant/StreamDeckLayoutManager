@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2022-present Didier Malenfant <coding@malenfant.net>
 #
-# SPDX-License-Identifier: GPLV3
+# SPDX-License-Identifier: MIT
 
 import os
 
