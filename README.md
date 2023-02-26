@@ -30,7 +30,7 @@ streamdeck_manager.displayPage('MyPageName')
 In order to receive key press/release information, you need to hook up at least one callback:
 
 ```
-streackdeck_manager.setCallback('MyCallbackName', callback_method)
+streamdeck_manager.setCallback('MyCallbackName', callback_method)
 ```
 
 Callback method wil receive a `List` of arguments, as provided by the key configuration, minus the callback name:
@@ -101,7 +101,7 @@ This callback will simply display it the page `SamplePage2`. The page stack is u
 
 ##### `Manager(config_file_path: str, deck_index: int = 0)`
 
-Initialize a new manager for streack deck at index `deck_index` using the config file at `config_file_path`.
+Initialize a new manager for stream deck at index `deck_index` using the config file at `config_file_path`.
 
 ##### `Manager.shutdown()`
 
